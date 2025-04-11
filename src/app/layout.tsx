@@ -3,9 +3,9 @@ import './globals.css';
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang='pt-BR' suppressHydrationWarning>
-            <body className='antialiased h-100'>
-                <NextThemeProvider defaultTheme='light' attribute='class' enableSystem storageKey='theme' disableTransitionOnChange={false}>
+        <html lang='pt-BR' className='h-full' suppressHydrationWarning>
+            <body className='antialiased h-full duration-200'>
+                <NextThemeProvider defaultTheme='light' attribute='class' enableSystem storageKey='theme'>
                     {children}
                 </NextThemeProvider>
             </body>
