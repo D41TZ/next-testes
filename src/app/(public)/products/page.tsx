@@ -1,17 +1,17 @@
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+'use client';
+
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+// import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { getProducts, Product } from '@/services/api/products';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-
-const products = Array.from({ length: 20 }, (_, index) => ({
-    id: index + 1,
-    name: `Produto ${String.fromCharCode(65 + index)}`,
-    price: parseFloat((Math.random() * (150 - 10) + 10).toFixed(2)),
-}));
+import { useEffect, useState } from 'react';
+import { ProductsTable } from './productsTable';
 
 export default function Products() {
+
     return (
-        <div className='space-y-4'>
+        <div className='space-y-4 h-full flex flex-col'>
             <div className='flex items-center justify-between border-b p-3 h-16'>
                 <h1 className='text-3xl font-semibold text-black dark:text-white'>Produtos</h1>
                 <Dialog>
@@ -42,7 +42,7 @@ export default function Products() {
                     <Button variant='outline'>Limpar</Button>
                 </div>
             </form>
-            <Table>
+            {/* <Table>
                 <TableHeader>
                     <TableRow>
                         <TableHead>ID</TableHead>
@@ -54,12 +54,15 @@ export default function Products() {
                     {products.map((product) => (
                         <TableRow key={product.id}>
                             <TableCell className='w-20'>{product.id}</TableCell>
-                            <TableCell className='w-lg'>{product.name}</TableCell>
-                            <TableCell className='w-28'>{product.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</TableCell>
+                            <TableCell className='w-lg'>{product.nome}</TableCell>
+                            <TableCell className='w-28'>{product.preco?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
-            </Table>
+            </Table> */}
+            <div className='flex-1'>
+                <ProductsTable />
+            </div>
         </div>
     );
 }
