@@ -1,12 +1,7 @@
-'use client';
-
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-// import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { getProducts, Product } from '@/services/api/products';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useEffect, useState } from 'react';
 import { ProductsTable } from './productsTable';
+import { Button } from '@/components/ui/button';
+import { ProductsForm } from './productsForm';
 
 export default function Products() {
 
@@ -32,16 +27,7 @@ export default function Products() {
                     </DialogContent>
                 </Dialog>
             </div>
-            <form className='flex justify-between'>
-                <div className='flex space-x-2'>
-                    <Input id='nome' type='text' placeholder='Nome' className='w-auto' />
-                    <Input id='preco' type='number'  placeholder='Preço' className='w-auto' />
-                </div>
-                <div className='flex space-x-2'>
-                    <Button>Pesquisar</Button>
-                    <Button variant='outline'>Limpar</Button>
-                </div>
-            </form>
+            <ProductsForm />
             {/* <Table>
                 <TableHeader>
                     <TableRow>

@@ -4,6 +4,10 @@ import { unstable_cache } from 'next/cache';
 
 interface getProductsProps {
     interval: [number, number];
+    filter?: {
+        nome?: string;
+        preco?: number;
+    }
 }
 
 export interface Product {
@@ -12,22 +16,30 @@ export interface Product {
     preco: number;
 }
 
-export async function getProducts({ interval }: getProductsProps) {
+export async function getProducts({ interval, filter }: getProductsProps) {
     const [start, end] = interval;
     const products = await productsCache();
+    const { nome, preco } = filter || {};
+    const filteredProducts = products.filter((product) => {
+        if (nome && !product.nome.toLowerCase().includes(nome.toLowerCase())) return false;
+        if (preco && product.preco !== preco) return false;
+        return true;
+    });
 
-    if(start < 0 || end > products.length || start >= end) throw new Error('Intervalo inválido!');
+    if(start < 0 || start >= end) throw new Error('Intervalo inválido!');
     
     await new Promise<void>((resolve) => {
         setTimeout(() => {
             resolve();
-        }, 1000);
+        }, 10000);
     });
 
-    const lastRow = end > products.length ? products.length : null;
+    if (!filteredProducts.length) throw new Error('Nenhum produto encontrado!');
+
+    const lastRow = end > filteredProducts.length ? filteredProducts.length : null;
 
     return {
-        rows: products.slice(interval[0], interval[1]),
+        rows: filteredProducts.slice(interval[0], interval[1]),
         lastRow
     };
 };
